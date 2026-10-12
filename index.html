@@ -1,0 +1,1828 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#05070c">
+<title>NONONICK — مرکز پروژه‌ها</title>
+<meta name="description" content="مجموعه‌ای از پروژه‌ها، اپ‌ها و ریپوهای من، یک‌جا.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root{
+  --bg:#05070c;
+  --bg-2:#0a0d15;
+  --bg-3:#0f1220;
+  --surface:rgba(255,255,255,.04);
+  --surface-2:rgba(255,255,255,.07);
+  --surface-3:rgba(255,255,255,.11);
+  --line:rgba(255,255,255,.08);
+  --line-2:rgba(255,255,255,.16);
+  --line-3:rgba(255,255,255,.26);
+  --txt:#e9edf6;
+  --txt-2:#98a3bb;
+  --txt-3:#5d6980;
+  --cyan:#22d3ee;
+  --blue:#4a9eff;
+  --violet:#a06bff;
+  --pink:#ec4899;
+  --green:#34d399;
+  --amber:#fbbf24;
+  --red:#fb7185;
+  --grad:linear-gradient(135deg,#22d3ee,#4a9eff 48%,#a06bff);
+  --grad-soft:linear-gradient(135deg,rgba(34,211,238,.14),rgba(74,158,255,.14) 48%,rgba(160,107,255,.14));
+  --shadow:0 20px 60px -22px rgba(0,0,0,.85);
+  --shadow-2:0 30px 80px -30px rgba(0,0,0,.9);
+  --r:16px;
+  --r-2:22px;
+  --r-3:28px;
+  --safe-t:env(safe-area-inset-top,0px);
+  --safe-b:env(safe-area-inset-bottom,0px);
+  --safe-l:env(safe-area-inset-left,0px);
+  --safe-r:env(safe-area-inset-right,0px);
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+[data-theme="light"]{
+  --bg:#f5f7fb;
+  --bg-2:#ffffff;
+  --bg-3:#eef1f8;
+  --surface:rgba(255,255,255,.75);
+  --surface-2:rgba(255,255,255,.95);
+  --surface-3:rgba(15,23,42,.04);
+  --line:rgba(15,23,42,.08);
+  --line-2:rgba(15,23,42,.16);
+  --line-3:rgba(15,23,42,.26);
+  --txt:#0a1120;
+  --txt-2:#4d5b78;
+  --txt-3:#8794ad;
+  --shadow:0 20px 50px -20px rgba(20,30,60,.18);
+  --shadow-2:0 30px 70px -25px rgba(20,30,60,.24);
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+html,body{min-height:100%}
+body{
+  font-family:'Vazirmatn',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--txt);
+  font-size:14.5px;
+  line-height:1.65;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(900px 600px at 12% -8%, rgba(34,211,238,.13), transparent 60%),
+    radial-gradient(800px 600px at 100% 4%, rgba(160,107,255,.11), transparent 62%),
+    radial-gradient(900px 620px at 50% 112%, rgba(74,158,255,.09), transparent 62%);
+}
+[data-theme="light"] body::before{opacity:.55}
+button,input,select,textarea{font:inherit;color:inherit;background:none;border:none}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+img,svg{display:block;max-width:100%}
+::selection{background:rgba(160,107,255,.4)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:8px}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:99px}
+::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.22)}
+::-webkit-scrollbar-track{background:transparent}
+[data-theme="light"] ::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15)}
+
+/* ============================================================
+   TOPBAR
+   ============================================================ */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  padding:calc(var(--safe-t) + 10px) calc(20px + var(--safe-r)) 10px calc(20px + var(--safe-l));
+  background:rgba(5,7,12,.75);
+  backdrop-filter:blur(22px) saturate(160%);
+  -webkit-backdrop-filter:blur(22px) saturate(160%);
+  border-bottom:1px solid var(--line);
+}
+[data-theme="light"] .topbar{background:rgba(245,247,251,.85)}
+.topbar-inner{
+  max-width:1280px;margin:0 auto;
+  display:flex;align-items:center;gap:12px;
+}
+.brand{display:flex;align-items:center;gap:11px;flex-shrink:0}
+.brand-mark{
+  width:36px;height:36px;border-radius:11px;
+  background:var(--grad);
+  display:grid;place-items:center;
+  box-shadow:0 0 24px rgba(34,211,238,.5);
+  position:relative;
+  flex-shrink:0;
+}
+.brand-mark::after{
+  content:'';position:absolute;inset:6px;border-radius:5px;
+  background:var(--bg);
+}
+.brand-mark svg{
+  position:relative;z-index:1;
+  width:16px;height:16px;
+  stroke:#0a0d15;fill:none;
+  stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;
+}
+.brand-text{display:flex;flex-direction:column;line-height:1.15}
+.brand-text b{font-size:15px;font-weight:800;letter-spacing:.02em}
+.brand-text small{font-size:9.5px;color:var(--txt-3);letter-spacing:.2em;font-weight:600}
+.topbar-spacer{flex:1}
+.topbar-actions{display:flex;align-items:center;gap:8px}
+
+.iconbtn{
+  width:38px;height:38px;border-radius:11px;
+  display:grid;place-items:center;
+  color:var(--txt-2);
+  border:1px solid var(--line);
+  background:var(--surface);
+  transition:all .18s var(--ease);
+  flex-shrink:0;
+}
+.iconbtn:hover{color:var(--txt);background:var(--surface-2);border-color:var(--line-2);transform:translateY(-1px)}
+.iconbtn:active{transform:scale(.94)}
+.iconbtn svg{width:17px;height:17px;stroke-width:1.85;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:9px 16px;border-radius:12px;
+  font-size:13.5px;font-weight:650;
+  border:1px solid var(--line-2);
+  background:var(--surface);
+  color:var(--txt);
+  transition:all .18s var(--ease);
+  white-space:nowrap;
+  min-height:38px;
+}
+.btn:hover{background:var(--surface-2);transform:translateY(-1px);border-color:var(--line-3)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn svg{width:15px;height:15px;stroke-width:2;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}
+.btn.primary{
+  background:var(--grad);color:#04141c;border-color:transparent;font-weight:750;
+  box-shadow:0 10px 26px -10px rgba(74,158,255,.7);
+}
+.btn.primary:hover{filter:brightness(1.08);box-shadow:0 14px 34px -10px rgba(74,158,255,.85)}
+.btn.ghost{background:transparent;border-color:var(--line)}
+.btn.danger{color:var(--red);border-color:rgba(251,113,133,.35)}
+.btn.danger:hover{background:rgba(251,113,133,.1)}
+.btn.sm{min-height:32px;padding:6px 12px;font-size:12.5px;border-radius:9px}
+.btn.sm svg{width:13px;height:13px}
+@media(max-width:640px){.hide-sm{display:none!important}}
+
+/* ============================================================
+   MAIN
+   ============================================================ */
+main{
+  position:relative;z-index:1;
+  max-width:1280px;
+  margin:0 auto;
+  padding:0 calc(20px + var(--safe-r)) calc(80px + var(--safe-b)) calc(20px + var(--safe-l));
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  text-align:center;
+  padding:72px 0 40px;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:7px 15px;border-radius:100px;
+  font-size:12.5px;font-weight:650;
+  background:var(--surface);
+  border:1px solid var(--line-2);
+  color:var(--txt-2);
+  margin-bottom:24px;
+}
+.hero-eyebrow .dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 10px var(--green);
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero h1{
+  font-size:clamp(28px,5.4vw,52px);
+  font-weight:850;
+  letter-spacing:-1.4px;
+  line-height:1.15;
+  margin-bottom:16px;
+}
+.hero h1 .grad{
+  background:var(--grad);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.hero-sub{
+  font-size:clamp(14px,2vw,17px);
+  color:var(--txt-2);
+  max-width:600px;
+  margin:0 auto 34px;
+  line-height:1.85;
+}
+
+/* Search */
+.hero-search{
+  max-width:620px;
+  margin:0 auto;
+  position:relative;
+  background:var(--surface);
+  border:1px solid var(--line-2);
+  border-radius:var(--r-2);
+  padding:6px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  transition:.25s var(--ease);
+  box-shadow:var(--shadow);
+}
+.hero-search:focus-within{
+  border-color:rgba(74,158,255,.45);
+  box-shadow:0 0 0 4px rgba(74,158,255,.1), var(--shadow);
+}
+.hero-search svg{
+  width:18px;height:18px;
+  color:var(--txt-3);
+  margin-inline-start:12px;
+  stroke-width:2;fill:none;stroke:currentColor;
+  flex-shrink:0;
+}
+.hero-search input{
+  flex:1;
+  padding:13px 8px;
+  outline:none;
+  font-size:15px;
+  min-width:0;
+}
+.hero-search input::placeholder{color:var(--txt-3)}
+
+/* Stats */
+.hero-stats{
+  display:flex;
+  justify-content:center;
+  gap:32px;
+  margin-top:32px;
+  flex-wrap:wrap;
+  color:var(--txt-2);
+  font-size:12.5px;
+}
+.hero-stats b{
+  display:block;
+  font-size:22px;
+  font-weight:850;
+  color:var(--txt);
+  letter-spacing:-.5px;
+  line-height:1.2;
+}
+
+/* ============================================================
+   FILTER BAR
+   ============================================================ */
+.filterbar{
+  position:sticky;
+  top:calc(var(--safe-t) + 60px);
+  z-index:30;
+  padding:14px 0 12px;
+  margin-bottom:18px;
+  background:linear-gradient(180deg,var(--bg) 0%,color-mix(in srgb,var(--bg) 75%,transparent) 80%,transparent 100%);
+  backdrop-filter:blur(6px);
+}
+.chips{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding:2px 0 6px;
+  scrollbar-width:none;
+}
+.chips::-webkit-scrollbar{display:none}
+.chip{
+  flex-shrink:0;
+  padding:8px 14px;
+  border-radius:100px;
+  font-size:12.5px;
+  font-weight:650;
+  background:var(--surface);
+  border:1px solid var(--line);
+  color:var(--txt-2);
+  transition:.18s var(--ease);
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  min-height:34px;
+}
+.chip:hover{background:var(--surface-2);color:var(--txt);border-color:var(--line-2)}
+.chip.on{
+  background:var(--grad);color:#04141c;border-color:transparent;
+  box-shadow:0 8px 20px -8px rgba(74,158,255,.7);
+}
+.chip .count{
+  font-size:11px;
+  padding:1px 7px;
+  border-radius:100px;
+  background:rgba(0,0,0,.15);
+  font-weight:700;
+}
+.chip.on .count{background:rgba(0,0,0,.2)}
+[data-theme="dark"] .chip:not(.on) .count{background:rgba(255,255,255,.06)}
+
+/* Sort */
+.sortrow{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:8px;
+  flex-wrap:wrap;
+}
+.results-count{font-size:12.5px;color:var(--txt-3);font-weight:600}
+.sortrow select{
+  padding:7px 30px 7px 12px;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:var(--surface);
+  font-size:12.5px;
+  font-weight:600;
+  color:var(--txt);
+  appearance:none;
+  cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2398a3bb' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 9px center;
+  background-size:12px;
+}
+html[dir="rtl"] .sortrow select{background-position:left 9px center;padding:7px 12px 7px 30px}
+
+/* ============================================================
+   GRID
+   ============================================================ */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:16px;
+  margin-top:4px;
+}
+@media(max-width:640px){
+  .grid{grid-template-columns:1fr;gap:12px}
+}
+
+.card{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  padding:20px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--r-2);
+  transition:all .25s var(--ease);
+  cursor:pointer;
+  overflow:hidden;
+  isolation:isolate;
+  text-align:start;
+}
+.card::before{
+  content:'';
+  position:absolute;inset:0;z-index:-1;
+  background:var(--grad-soft);
+  opacity:0;
+  transition:opacity .3s var(--ease);
+  pointer-events:none;
+}
+.card:hover{
+  transform:translateY(-4px);
+  border-color:var(--line-2);
+  box-shadow:var(--shadow);
+}
+.card:hover::before{opacity:1}
+.card:active{transform:translateY(-1px) scale(.995)}
+
+.card-top{
+  display:flex;align-items:flex-start;gap:13px;
+  margin-bottom:14px;
+}
+.card-icon{
+  width:46px;height:46px;border-radius:13px;
+  background:var(--surface-2);
+  border:1px solid var(--line);
+  display:grid;place-items:center;
+  font-size:22px;
+  flex-shrink:0;
+  overflow:hidden;
+  position:relative;
+}
+.card-icon img{width:100%;height:100%;object-fit:cover}
+.card-icon svg{width:22px;height:22px;stroke-width:1.75;fill:none;stroke:currentColor}
+.card-icon .initial{
+  font-size:20px;font-weight:850;letter-spacing:-.5px;
+  background:var(--grad);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.card-title{
+  flex:1;min-width:0;
+  display:flex;flex-direction:column;gap:3px;
+}
+.card-title h3{
+  font-size:16px;font-weight:750;
+  letter-spacing:-.2px;
+  line-height:1.35;
+  display:flex;align-items:center;gap:7px;
+  flex-wrap:wrap;
+}
+.card-title h3 .repo-owner{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  font-weight:600;
+  color:var(--txt-3);
+}
+.card-title .sub{
+  font-size:12px;
+  color:var(--txt-3);
+  font-family:'JetBrains Mono',monospace;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.card-desc{
+  font-size:13.5px;
+  color:var(--txt-2);
+  line-height:1.75;
+  margin-bottom:14px;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+  min-height:3.5em;
+}
+.card-desc.empty{color:var(--txt-3);font-style:italic}
+
+.card-tags{
+  display:flex;flex-wrap:wrap;gap:6px;
+  margin-bottom:14px;
+  min-height:26px;
+}
+.tag{
+  font-size:11px;
+  font-weight:650;
+  padding:3px 9px;
+  border-radius:100px;
+  background:var(--surface-2);
+  border:1px solid var(--line);
+  color:var(--txt-2);
+  white-space:nowrap;
+}
+.tag.cat{
+  background:rgba(74,158,255,.14);
+  color:var(--blue);
+  border-color:rgba(74,158,255,.28);
+}
+
+.card-foot{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-top:auto;
+  padding-top:12px;
+  border-top:1px solid var(--line);
+  font-size:11.5px;
+  color:var(--txt-3);
+  flex-wrap:wrap;
+}
+.card-foot .metric{
+  display:flex;
+  align-items:center;
+  gap:5px;
+  font-weight:600;
+}
+.card-foot .metric svg{width:13px;height:13px;stroke-width:2;fill:none;stroke:currentColor}
+.card-foot .lang-dot{
+  width:9px;height:9px;border-radius:50%;
+  background:var(--txt-3);
+  flex-shrink:0;
+}
+.card-foot .spacer{flex:1}
+.card-foot .arrow{
+  color:var(--txt-3);
+  transition:all .25s var(--ease);
+  display:grid;place-items:center;
+  width:26px;height:26px;
+}
+.card:hover .card-foot .arrow{
+  color:var(--blue);
+  transform:translateX(-4px);
+}
+html[dir="ltr"] .card:hover .card-foot .arrow{transform:translateX(4px)}
+.card-foot .arrow svg{width:14px;height:14px;stroke-width:2.2;fill:none;stroke:currentColor}
+
+/* Private badge */
+.card .private-badge{
+  position:absolute;
+  top:14px;
+  inset-inline-end:14px;
+  font-size:9.5px;
+  font-weight:800;
+  letter-spacing:.08em;
+  padding:3px 8px;
+  border-radius:6px;
+  background:rgba(251,191,36,.15);
+  border:1px solid rgba(251,191,36,.35);
+  color:var(--amber);
+  text-transform:uppercase;
+  z-index:2;
+}
+
+/* Empty state */
+.empty-state{
+  text-align:center;
+  padding:70px 20px;
+  color:var(--txt-2);
+}
+.empty-state .big{
+  font-size:56px;
+  margin-bottom:16px;
+  opacity:.5;
+  filter:grayscale(.3);
+}
+.empty-state h3{
+  font-size:18px;
+  font-weight:750;
+  color:var(--txt);
+  margin-bottom:8px;
+}
+.empty-state p{
+  font-size:13.5px;
+  max-width:380px;
+  margin:0 auto 22px;
+  line-height:1.75;
+}
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+.modal-backdrop{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(3,5,10,.75);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  display:none;
+  align-items:flex-start;
+  justify-content:center;
+  padding:calc(var(--safe-t) + 40px) 16px calc(var(--safe-b) + 16px);
+  overflow-y:auto;
+  animation:fadeIn .22s var(--ease);
+}
+.modal-backdrop.on{display:flex}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal{
+  width:100%;
+  max-width:560px;
+  background:var(--bg-3);
+  border:1px solid var(--line-2);
+  border-radius:var(--r-3);
+  box-shadow:var(--shadow-2);
+  overflow:hidden;
+  animation:popIn .25s var(--ease);
+  margin:auto;
+}
+@keyframes popIn{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
+.modal-head{
+  padding:18px 22px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.modal-head h3{
+  font-size:16px;
+  font-weight:750;
+  letter-spacing:-.2px;
+  flex:1;
+}
+.modal-head .close{
+  width:32px;height:32px;border-radius:9px;
+  display:grid;place-items:center;
+  color:var(--txt-3);
+  border:1px solid transparent;
+  transition:.15s;
+}
+.modal-head .close:hover{background:var(--surface);color:var(--txt);border-color:var(--line)}
+.modal-head .close svg{width:16px;height:16px;stroke-width:2;fill:none;stroke:currentColor}
+.modal-body{
+  padding:20px 22px;
+  max-height:min(60vh,600px);
+  overflow-y:auto;
+}
+.modal-foot{
+  padding:14px 22px;
+  border-top:1px solid var(--line);
+  display:flex;
+  gap:10px;
+  justify-content:flex-start;
+  flex-wrap:wrap;
+}
+.modal-foot .spacer{flex:1}
+
+/* Form fields */
+.field{margin-bottom:15px}
+.field label{
+  display:block;
+  font-size:11.5px;
+  font-weight:750;
+  color:var(--txt-2);
+  letter-spacing:.04em;
+  margin-bottom:6px;
+  text-transform:uppercase;
+}
+.field label .opt{
+  color:var(--txt-3);
+  font-weight:500;
+  font-size:10.5px;
+  text-transform:none;
+  letter-spacing:0;
+}
+.field input,.field textarea,.field select{
+  width:100%;
+  padding:11px 14px;
+  border-radius:12px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  font-size:14px;
+  outline:none;
+  transition:.18s var(--ease);
+  font-family:inherit;
+}
+.field input:focus,.field textarea:focus,.field select:focus{
+  border-color:rgba(74,158,255,.5);
+  background:var(--surface-2);
+  box-shadow:0 0 0 3px rgba(74,158,255,.12);
+}
+.field textarea{min-height:88px;resize:vertical;line-height:1.7}
+.field select{
+  appearance:none;
+  cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2398a3bb' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 14px center;
+  background-size:13px;
+  padding-inline-end:36px;
+}
+html[dir="rtl"] .field select{background-position:left 14px center;padding-inline-end:14px;padding-inline-start:36px}
+.field .help{
+  font-size:11.5px;
+  color:var(--txt-3);
+  margin-top:5px;
+  line-height:1.6;
+}
+.field .help code{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  padding:1px 6px;
+  border-radius:5px;
+  background:var(--surface-2);
+  color:var(--cyan);
+}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:520px){.field-row{grid-template-columns:1fr}}
+
+/* Tag input */
+.tag-input{
+  display:flex;flex-wrap:wrap;gap:6px;
+  padding:8px;
+  border-radius:12px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  min-height:46px;
+  align-items:center;
+  transition:.18s;
+}
+.tag-input:focus-within{border-color:rgba(74,158,255,.5);box-shadow:0 0 0 3px rgba(74,158,255,.12)}
+.tag-input input{
+  flex:1;min-width:100px;padding:5px 8px;border:none;background:none;outline:none;
+}
+.tag-input .t{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:3px 8px;
+  background:rgba(74,158,255,.14);
+  color:var(--blue);
+  border-radius:8px;
+  font-size:12px;
+  font-weight:650;
+}
+.tag-input .t button{
+  color:inherit;opacity:.6;font-size:15px;line-height:1;
+  padding:0 2px;
+}
+.tag-input .t button:hover{opacity:1}
+
+/* ============================================================
+   GITHUB IMPORT PANEL
+   ============================================================ */
+.gh-panel{
+  background:var(--surface);
+  border:1px solid var(--line-2);
+  border-radius:var(--r);
+  padding:16px;
+  margin-bottom:18px;
+}
+.gh-panel-head{
+  display:flex;align-items:center;gap:10px;margin-bottom:12px;
+}
+.gh-panel-head svg{width:18px;height:18px;fill:currentColor;stroke:none}
+.gh-panel-head h3{font-size:14px;font-weight:750}
+.gh-panel-head p{font-size:12px;color:var(--txt-3);margin-top:2px}
+.gh-row{display:flex;gap:10px;flex-wrap:wrap}
+.gh-row input{flex:1;min-width:160px}
+
+.gh-preview{
+  margin-top:12px;
+  max-height:280px;
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.gh-item{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 12px;
+  border-radius:10px;
+  background:var(--surface-2);
+  border:1px solid var(--line);
+  cursor:pointer;
+  transition:.15s;
+  font-size:13px;
+}
+.gh-item:hover{border-color:var(--line-2);background:var(--surface-3)}
+.gh-item.on{border-color:var(--blue);background:rgba(74,158,255,.1)}
+.gh-item input[type=checkbox]{
+  width:16px;height:16px;accent-color:var(--blue);cursor:pointer;flex-shrink:0;
+}
+.gh-item .name{flex:1;min-width:0;font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:600}
+.gh-item .desc{font-size:11px;color:var(--txt-3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gh-item .meta{font-size:10.5px;color:var(--txt-3);font-family:'JetBrains Mono',monospace}
+
+/* ============================================================
+   LOADER
+   ============================================================ */
+.loader{
+  display:inline-block;
+  width:14px;height:14px;
+  border-radius:50%;
+  border:2px solid rgba(74,158,255,.2);
+  border-top-color:var(--cyan);
+  animation:spin .8s linear infinite;
+  vertical-align:-2px;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ============================================================
+   TOASTS
+   ============================================================ */
+#toasts{
+  position:fixed;
+  bottom:calc(24px + var(--safe-b));
+  left:calc(24px + var(--safe-l));
+  z-index:400;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  pointer-events:none;
+  max-width:360px;
+}
+.toast{
+  pointer-events:auto;
+  padding:11px 16px;
+  border-radius:12px;
+  background:rgba(15,18,32,.96);
+  border:1px solid var(--line-2);
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(14px);
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:13px;
+  font-weight:600;
+  color:var(--txt);
+  animation:toastIn .28s var(--ease);
+}
+[data-theme="light"] .toast{background:rgba(255,255,255,.98)}
+.toast.ok{border-color:rgba(52,211,153,.4)}
+.toast.ok .ic{color:var(--green)}
+.toast.err{border-color:rgba(251,113,133,.5)}
+.toast.err .ic{color:var(--red)}
+.toast.info .ic{color:var(--cyan)}
+.toast .ic{width:16px;height:16px;flex-shrink:0;font-size:15px;line-height:1}
+@keyframes toastIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.foot{
+  margin-top:60px;
+  padding:26px 0;
+  border-top:1px solid var(--line);
+  text-align:center;
+  font-size:12.5px;
+  color:var(--txt-3);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  flex-wrap:wrap;
+}
+.foot a{color:var(--blue);font-weight:650}
+.foot a:hover{text-decoration:underline}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media(max-width:768px){
+  .hero{padding:48px 0 26px}
+  main{padding-inline:16px}
+  .topbar{padding-inline:14px}
+  .brand-text small{display:none}
+  .topbar-actions .btn span{display:none}
+  .topbar-actions .btn{padding:9px 12px}
+  .modal-head,.modal-body,.modal-foot{padding-inline:18px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     TOPBAR
+     ============================================================ -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="#" class="brand" onclick="event.preventDefault();window.scrollTo({top:0,behavior:'smooth'})">
+      <div class="brand-mark">
+        <svg viewBox="0 0 24 24"><path d="M4 18V6l8 10 8-10v12"/></svg>
+      </div>
+      <div class="brand-text">
+        <b>NONONICK</b>
+        <small>PROJECT HUB</small>
+      </div>
+    </a>
+
+    <div class="topbar-spacer"></div>
+
+    <div class="topbar-actions">
+      <button class="iconbtn" id="btnTheme" title="پوسته">
+        <svg id="icTheme" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="btn" id="btnImport">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+        <span>ورودی</span>
+      </button>
+      <button class="btn" id="btnExport">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
+        <span>خروجی</span>
+      </button>
+      <button class="btn primary" id="btnAdd">
+        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+        <span>افزودن</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <section class="hero">
+    <div class="hero-eyebrow">
+      <span class="dot"></span>
+      <span>مرکز پروژه‌ها و اپلیکیشن‌ها</span>
+    </div>
+    <h1>همه‌ی <span class="grad">پروژه‌ها</span>، یک‌جا.</h1>
+    <p class="hero-sub">ریپوهای گیت‌هاب، اپ‌های وب، ابزارها و هر چیزی که خواستی — با یک لینک و یک جستجو در دسترس.</p>
+
+    <div class="hero-search">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="search" id="searchInput" placeholder="جستجو در نام، توضیح، تگ یا زبان…" autocomplete="off">
+    </div>
+
+    <div class="hero-stats" id="heroStats"></div>
+  </section>
+
+  <!-- ============================================================
+       FILTER BAR
+       ============================================================ -->
+  <div class="filterbar">
+    <div class="chips" id="chips"></div>
+    <div class="sortrow">
+      <span class="results-count" id="resultsCount"></span>
+      <select id="sortSelect">
+        <option value="recent">جدیدترین</option>
+        <option value="oldest">قدیمی‌ترین</option>
+        <option value="name">نام (الفبا)</option>
+        <option value="stars">ستاره‌ها</option>
+        <option value="updated">آخرین به‌روزرسانی</option>
+        <option value="manual">ترتیب دستی</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       GRID
+       ============================================================ -->
+  <div id="gridContainer"></div>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="foot">
+    <span>ساخته‌شده برای جمع‌کردن همه‌چیز در یک جا</span>
+    <span id="footStats"></span>
+  </footer>
+</main>
+
+<!-- ============================================================
+     TOASTS
+     ============================================================ -->
+<div id="toasts"></div>
+
+<!-- ============================================================
+     MODAL: EDIT ITEM
+     ============================================================ -->
+<div class="modal-backdrop" id="modalItem">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="itemModalTitle">افزودن پروژه جدید</h3>
+      <button class="close" data-close="modalItem"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <div class="field">
+        <label>نام پروژه <span style="color:var(--red)">*</span></label>
+        <input id="fName" placeholder="مثلاً: NonoMail AI" autocomplete="off">
+      </div>
+
+      <div class="field">
+        <label>لینک <span class="opt">(URL کامل با https://)</span></label>
+        <input id="fUrl" placeholder="https://github.com/user/repo" dir="ltr" autocomplete="off">
+        <div class="help">می‌تونه هر چیزی باشه: سایت، ریپوی گیت‌هاب، فایل، دمو، اپ…</div>
+      </div>
+
+      <div class="field">
+        <label>توضیح کوتاه</label>
+        <textarea id="fDesc" placeholder="یک یا دو خط توضیح درباره‌ی این پروژه…"></textarea>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>آیکون <span class="opt">(اموجی یا URL تصویر)</span></label>
+          <input id="fIcon" placeholder="🚀" autocomplete="off">
+        </div>
+        <div class="field">
+          <label>دسته‌بندی</label>
+          <input id="fCategory" placeholder="مثلاً: ابزار، اپ، سورس‌کد" list="catList" autocomplete="off">
+          <datalist id="catList"></datalist>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>تگ‌ها <span class="opt">(با Enter اضافه کن)</span></label>
+        <div class="tag-input" id="tagInput">
+          <input id="fTagInput" placeholder="تگ بنویس و Enter بزن…" autocomplete="off">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>زبان برنامه‌نویسی <span class="opt">(اختیاری)</span></label>
+          <input id="fLang" placeholder="JavaScript, Python, HTML…" autocomplete="off">
+        </div>
+        <div class="field">
+          <label>ستاره‌ها <span class="opt">(اختیاری)</span></label>
+          <input id="fStars" type="number" min="0" placeholder="0">
+        </div>
+      </div>
+
+      <div class="field">
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;text-transform:none;letter-spacing:0;font-size:13px;font-weight:600">
+          <input type="checkbox" id="fPrivate" style="width:16px;height:16px;accent-color:var(--amber);cursor:pointer">
+          <span>پروژه‌ی خصوصی است (برچسب PRIVATE نمایش داده بشه)</span>
+        </label>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn danger sm" id="btnDeleteItem" style="display:none">حذف</button>
+      <span class="spacer"></span>
+      <button class="btn ghost" data-close="modalItem">انصراف</button>
+      <button class="btn primary" id="btnSaveItem">ذخیره</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL: GITHUB IMPORT
+     ============================================================ -->
+<div class="modal-backdrop" id="modalGH">
+  <div class="modal" style="max-width:620px">
+    <div class="modal-head">
+      <h3>افزودن خودکار از گیت‌هاب</h3>
+      <button class="close" data-close="modalGH"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="modal-body">
+      <div class="field">
+        <label>نام کاربری گیت‌هاب <span style="color:var(--red)">*</span></label>
+        <input id="ghUser" placeholder="مثلاً: torvalds" dir="ltr" autocomplete="off">
+        <div class="help">همه‌ی ریپوهای عمومی این کاربر لیست می‌شن.</div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>فیلتر بر اساس زبان <span class="opt">(اختیاری)</span></label>
+          <input id="ghLang" placeholder="JavaScript, Python…" dir="ltr">
+        </div>
+        <div class="field">
+          <label>حداقل ستاره <span class="opt">(اختیاری)</span></label>
+          <input id="ghMinStars" type="number" min="0" placeholder="0">
+        </div>
+      </div>
+      <div class="field">
+        <label style="display:flex;gap:8px;align-items:center;cursor:pointer;text-transform:none;letter-spacing:0;font-size:13px;font-weight:600">
+          <input type="checkbox" id="ghSkipForks" checked style="width:16px;height:16px;accent-color:var(--blue);cursor:pointer">
+          <span>ریپوهای Fork شده نمایش داده نشن</span>
+        </label>
+      </div>
+
+      <button class="btn primary" id="btnGHFetch" style="width:100%;justify-content:center">
+        <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" style="width:16px;height:16px"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.2-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.2 0 4.5-2.7 5.5-5.3 5.8.4.3.8 1 .8 2v3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+        <span id="ghFetchLabel">دریافت ریپوها</span>
+      </button>
+
+      <div class="gh-preview" id="ghPreview"></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn ghost" data-close="modalGH">انصراف</button>
+      <span class="spacer"></span>
+      <button class="btn sm" id="btnGHSelectAll">انتخاب همه</button>
+      <button class="btn sm" id="btnGHSelectNone">حذف انتخاب</button>
+      <button class="btn primary" id="btnGHAdd" disabled>
+        افزودن <span id="ghSelCount">0</span> مورد
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+/* ============================================================
+   NONONICK PROJECT HUB
+   ============================================================ */
+
+const $  = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const esc = s => String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid = () => Math.random().toString(36).slice(2,10) + Date.now().toString(36).slice(-4);
+const debounce = (fn,ms=250)=>{let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms)}};
+
+/* Language colors (GitHub-ish) */
+const LANG_COLORS = {
+  JavaScript:'#f1e05a', TypeScript:'#3178c6', Python:'#3572A5', HTML:'#e34c26', CSS:'#563d7c',
+  PHP:'#4F5D95', Java:'#b07219', 'C++':'#f34b7d', C:'#555555', 'C#':'#178600', Ruby:'#701516',
+  Go:'#00ADD8', Rust:'#dea584', Swift:'#ffac45', Kotlin:'#A97BFF', Dart:'#00B4AB',
+  Shell:'#89e051', Vue:'#41b883', Svelte:'#ff3e00', Lua:'#000080', Perl:'#0298c3',
+  'Jupyter Notebook':'#DA5B0B', Dockerfile:'#384d54', Makefile:'#427819', SCSS:'#c6538c'
+};
+
+/* State */
+const State = {
+  items: [],
+  filter: 'all',
+  query: '',
+  sort: 'recent',
+  theme: 'dark',
+  editId: null,
+  ghResults: [],
+  ghSelected: new Set(),
+  tagDraft: []
+};
+
+const LS_KEY = 'nononick-hub-v1';
+
+/* ---------- Persistence ---------- */
+function save(){
+  try {
+    localStorage.setItem(LS_KEY, JSON.stringify({
+      items: State.items,
+      theme: State.theme,
+      sort: State.sort
+    }));
+  } catch(e){
+    toast('خطا در ذخیره‌سازی (شاید حافظه پر شده)', 'err');
+  }
+}
+function load(){
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (!raw) return false;
+    const d = JSON.parse(raw);
+    State.items = Array.isArray(d.items) ? d.items : [];
+    State.theme = d.theme === 'light' ? 'light' : 'dark';
+    State.sort  = d.sort || 'recent';
+    return true;
+  } catch(e){ return false; }
+}
+
+/* ---------- Toast ---------- */
+function toast(msg, kind='info', ms=2800){
+  const box = document.createElement('div');
+  box.className = 'toast ' + kind;
+  const icon = kind==='ok' ? '✓' : kind==='err' ? '⚠' : 'ℹ';
+  box.innerHTML = `<span class="ic">${icon}</span><span>${esc(msg)}</span>`;
+  $('#toasts').appendChild(box);
+  setTimeout(()=>{
+    box.style.opacity='0';
+    box.style.transform='translateY(10px)';
+    setTimeout(()=>box.remove(),240);
+  }, ms);
+}
+
+/* ---------- Theme ---------- */
+function applyTheme(){
+  document.documentElement.setAttribute('data-theme', State.theme);
+  const ic = $('#icTheme');
+  if (ic){
+    ic.innerHTML = State.theme === 'dark'
+      ? '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>'
+      : '<circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.4M12 19v2.4M4.2 12H1.8M22.2 12h-2.4M5.6 5.6 3.9 3.9M20.1 20.1l-1.7-1.7M18.4 5.6l1.7-1.7M3.9 20.1l1.7-1.7"/>';
+  }
+  const mc = document.querySelector('meta[name="theme-color"]');
+  if (mc) mc.content = State.theme === 'dark' ? '#05070c' : '#f5f7fb';
+}
+
+/* ---------- Helpers ---------- */
+function getHost(url){
+  try { return new URL(url).hostname.replace(/^www\./,''); } catch(e){ return ''; }
+}
+function relTime(iso){
+  if (!iso) return '';
+  const d = new Date(iso).getTime();
+  if (isNaN(d)) return '';
+  const diff = Date.now() - d;
+  const mn = 60_000, hr = 3_600_000, dy = 86_400_000;
+  if (diff < mn) return 'همین حالا';
+  if (diff < hr) return Math.floor(diff/mn) + ' دقیقه پیش';
+  if (diff < dy) return Math.floor(diff/hr) + ' ساعت پیش';
+  if (diff < 30*dy) return Math.floor(diff/dy) + ' روز پیش';
+  if (diff < 365*dy) return Math.floor(diff/(30*dy)) + ' ماه پیش';
+  return Math.floor(diff/(365*dy)) + ' سال پیش';
+}
+function extIcon(url){
+  try {
+    const h = new URL(url).hostname.toLowerCase();
+    if (h.includes('github.com'))      return '🐙';
+    if (h.includes('gitlab'))          return '🦊';
+    if (h.includes('vercel'))          return '▲';
+    if (h.includes('netlify'))         return '🌐';
+    if (h.includes('npmjs'))           return '📦';
+    if (h.includes('youtube') || h.includes('youtu.be')) return '▶️';
+    if (h.includes('figma'))           return '🎨';
+    if (h.includes('notion'))          return '📓';
+    if (h.includes('drive.google'))    return '📁';
+    return '🔗';
+  } catch(e){ return '🔗'; }
+}
+
+/* ---------- Rendering ---------- */
+function buildChips(){
+  const cats = new Map();
+  State.items.forEach(i => {
+    const c = i.category || 'سایر';
+    cats.set(c, (cats.get(c) || 0) + 1);
+  });
+
+  const chips = [
+    { key:'all', label:'همه', count: State.items.length },
+    ...Array.from(cats.entries()).sort((a,b)=>b[1]-a[1]).map(([k,v])=>({key:k,label:k,count:v}))
+  ];
+
+  $('#chips').innerHTML = chips.map(c => `
+    <button class="chip ${State.filter===c.key?'on':''}" data-filter="${esc(c.key)}">
+      <span>${esc(c.label)}</span>
+      <span class="count">${c.count}</span>
+    </button>
+  `).join('');
+}
+
+function filteredItems(){
+  let list = State.items.slice();
+
+  if (State.filter !== 'all'){
+    list = list.filter(i => (i.category || 'سایر') === State.filter);
+  }
+
+  if (State.query){
+    const q = State.query.toLowerCase();
+    list = list.filter(i => {
+      const hay = [i.name, i.desc, i.url, i.lang, i.category, ...(i.tags||[])].filter(Boolean).join(' ').toLowerCase();
+      return hay.includes(q);
+    });
+  }
+
+  // Sort
+  const s = State.sort;
+  if (s === 'recent'){
+    list.sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
+  } else if (s === 'oldest'){
+    list.sort((a,b)=>(a.createdAt||0)-(b.createdAt||0));
+  } else if (s === 'name'){
+    list.sort((a,b)=>(a.name||'').localeCompare(b.name||'','fa'));
+  } else if (s === 'stars'){
+    list.sort((a,b)=>(b.stars||0)-(a.stars||0));
+  } else if (s === 'updated'){
+    list.sort((a,b)=>{
+      const ta = a.pushedAt ? new Date(a.pushedAt).getTime() : 0;
+      const tb = b.pushedAt ? new Date(b.pushedAt).getTime() : 0;
+      return tb - ta;
+    });
+  } else if (s === 'manual'){
+    list.sort((a,b)=>(a.order||0)-(b.order||0));
+  }
+
+  return list;
+}
+
+function cardHTML(i){
+  const icon = i.icon || extIcon(i.url) || '📦';
+  const isImg = /^https?:\/\//.test(icon) || icon.startsWith('data:');
+  const host = getHost(i.url);
+  const langColor = i.lang && LANG_COLORS[i.lang] ? LANG_COLORS[i.lang] : (i.lang ? 'var(--txt-3)' : '');
+
+  const iconHTML = isImg
+    ? `<img src="${esc(icon)}" alt="" onerror="this.parentNode.innerHTML='📦'">`
+    : (icon.length > 2 || /^[\u{1F000}-\u{1FFFF}\u{2600}-\u{27BF}]/u.test(icon)
+        ? `<span style="font-size:22px">${esc(icon)}</span>`
+        : `<span class="initial">${esc(icon.charAt(0).toUpperCase())}</span>`);
+
+  const tags = (i.tags || []).slice(0,4).map(t => `<span class="tag">${esc(t)}</span>`).join('');
+
+  return `
+    <a class="card" href="${esc(i.url||'#')}" data-id="${esc(i.id)}" target="_blank" rel="noopener noreferrer">
+      ${i.private ? '<span class="private-badge">Private</span>' : ''}
+      <div class="card-top">
+        <div class="card-icon">${iconHTML}</div>
+        <div class="card-title">
+          <h3>
+            <span>${esc(i.name || 'بدون نام')}</span>
+          </h3>
+          ${host ? `<span class="sub">${esc(host)}${i.repoFull ? ' / ' + esc(i.repoFull.split('/').pop()) : ''}</span>` : ''}
+        </div>
+      </div>
+
+      <div class="card-desc ${i.desc?'':'empty'}">${esc(i.desc || 'بدون توضیح')}</div>
+
+      <div class="card-tags">
+        ${i.category ? `<span class="tag cat">${esc(i.category)}</span>` : ''}
+        ${tags}
+      </div>
+
+      <div class="card-foot">
+        ${i.lang ? `<span class="metric"><span class="lang-dot" style="background:${langColor}"></span>${esc(i.lang)}</span>` : ''}
+        ${i.stars ? `<span class="metric">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          ${i.stars.toLocaleString('fa-IR')}
+        </span>` : ''}
+        ${i.pushedAt ? `<span class="metric">${relTime(i.pushedAt)}</span>` : ''}
+        <span class="spacer"></span>
+        <span class="arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M15 5l-7 7 7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+    </a>
+  `;
+}
+
+function renderGrid(){
+  const list = filteredItems();
+  const box = $('#gridContainer');
+
+  if (!list.length){
+    box.innerHTML = `
+      <div class="empty-state">
+        <div class="big">🔍</div>
+        <h3>${State.query ? 'چیزی پیدا نشد' : 'هنوز چیزی اضافه نکردی'}</h3>
+        <p>${State.query ? 'عبارت جستجو رو تغییر بده یا فیلتر رو بردار.' : 'از دکمه‌ی «افزودن» استفاده کن یا با دکمه‌ی «ورودی» یه فایل JSON وارد کن.'}</p>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          <button class="btn primary" id="emptyAdd">
+            <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            افزودن اولین پروژه
+          </button>
+          <button class="btn" id="emptyGH">
+            <svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.2-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.2 0 4.5-2.7 5.5-5.3 5.8.4.3.8 1 .8 2v3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+            افزودن از گیت‌هاب
+          </button>
+        </div>
+      </div>
+    `;
+    $('#emptyAdd')?.addEventListener('click', ()=>openItemModal(null));
+    $('#emptyGH')?.addEventListener('click', openGHModal);
+    return;
+  }
+
+  box.className = 'grid';
+  box.innerHTML = list.map(cardHTML).join('');
+
+  // Right-click / long-press to edit
+  box.querySelectorAll('.card').forEach(el => {
+    el.addEventListener('contextmenu', e => {
+      e.preventDefault();
+      const id = el.dataset.id;
+      const item = State.items.find(x => x.id === id);
+      if (item) openItemModal(item);
+    });
+    // Long press on mobile
+    let pressTimer;
+    el.addEventListener('touchstart', () => {
+      pressTimer = setTimeout(() => {
+        const id = el.dataset.id;
+        const item = State.items.find(x => x.id === id);
+        if (item) openItemModal(item);
+      }, 600);
+    }, { passive: true });
+    el.addEventListener('touchend', () => clearTimeout(pressTimer));
+    el.addEventListener('touchmove', () => clearTimeout(pressTimer));
+    el.addEventListener('touchcancel', () => clearTimeout(pressTimer));
+  });
+}
+
+function renderHeroStats(){
+  const total = State.items.length;
+  const repos = State.items.filter(i => (i.url||'').includes('github.com')).length;
+  const priv = State.items.filter(i => i.private).length;
+  const langs = new Set(State.items.map(i=>i.lang).filter(Boolean)).size;
+
+  $('#heroStats').innerHTML = `
+    <div><b>${total.toLocaleString('fa-IR')}</b>پروژه</div>
+    <div><b>${repos.toLocaleString('fa-IR')}</b>ریپو</div>
+    <div><b>${langs.toLocaleString('fa-IR')}</b>زبان</div>
+    ${priv ? `<div><b>${priv.toLocaleString('fa-IR')}</b>خصوصی</div>` : ''}
+  `;
+  $('#footStats').textContent = `${total} پروژه · ${repos} ریپو`;
+}
+
+function renderAll(){
+  buildChips();
+  renderGrid();
+  renderHeroStats();
+  updateCatList();
+}
+
+function updateCatList(){
+  const cats = new Set(State.items.map(i=>i.category).filter(Boolean));
+  $('#catList').innerHTML = [...cats].map(c=>`<option value="${esc(c)}">`).join('');
+}
+
+/* ============================================================
+   ITEM MODAL (add / edit)
+   ============================================================ */
+function openItemModal(item){
+  State.editId = item ? item.id : null;
+  State.tagDraft = item ? [...(item.tags||[])] : [];
+
+  $('#itemModalTitle').textContent = item ? 'ویرایش پروژه' : 'افزودن پروژه جدید';
+  $('#fName').value     = item?.name || '';
+  $('#fUrl').value      = item?.url || '';
+  $('#fDesc').value     = item?.desc || '';
+  $('#fIcon').value     = item?.icon || '';
+  $('#fCategory').value = item?.category || '';
+  $('#fLang').value     = item?.lang || '';
+  $('#fStars').value    = item?.stars || '';
+  $('#fPrivate').checked = !!item?.private;
+  renderTagInput();
+
+  $('#btnDeleteItem').style.display = item ? 'inline-flex' : 'none';
+  openModal('modalItem');
+  setTimeout(()=>$('#fName').focus(), 60);
+}
+
+function renderTagInput(){
+  const box = $('#tagInput');
+  box.innerHTML = State.tagDraft.map((t,i) =>
+    `<span class="t">${esc(t)}<button type="button" data-tagi="${i}">×</button></span>`
+  ).join('') + `<input id="fTagInput" placeholder="${State.tagDraft.length?'تگ دیگه…':'تگ بنویس و Enter بزن…'}" autocomplete="off">`;
+
+  box.querySelectorAll('[data-tagi]').forEach(b => {
+    b.onclick = () => {
+      State.tagDraft.splice(+b.dataset.tagi, 1);
+      renderTagInput();
+      $('#tagInput input').focus();
+    };
+  });
+
+  const inp = box.querySelector('input');
+  inp.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ','){
+      e.preventDefault();
+      const v = inp.value.trim().replace(/^#/,'').replace(/,+$/,'');
+      if (v && !State.tagDraft.includes(v) && State.tagDraft.length < 12){
+        State.tagDraft.push(v);
+        inp.value = '';
+        renderTagInput();
+        $('#tagInput input').focus();
+      } else if (State.tagDraft.includes(v)){
+        inp.value = '';
+      }
+    } else if (e.key === 'Backspace' && !inp.value && State.tagDraft.length){
+      State.tagDraft.pop();
+      renderTagInput();
+      $('#tagInput input').focus();
+    }
+  });
+}
+
+function saveItem(){
+  const name = $('#fName').value.trim();
+  if (!name){ toast('نام پروژه رو وارد کن', 'err'); $('#fName').focus(); return; }
+
+  let url = $('#fUrl').value.trim();
+  if (url && !/^https?:\/\//i.test(url)) url = 'https://' + url;
+
+  const data = {
+    name,
+    url,
+    desc: $('#fDesc').value.trim(),
+    icon: $('#fIcon').value.trim(),
+    category: $('#fCategory').value.trim() || 'سایر',
+    tags: [...State.tagDraft],
+    lang: $('#fLang').value.trim(),
+    stars: parseInt($('#fStars').value, 10) || 0,
+    private: $('#fPrivate').checked
+  };
+
+  if (State.editId){
+    const i = State.items.findIndex(x => x.id === State.editId);
+    if (i > -1) State.items[i] = { ...State.items[i], ...data, updatedAt: Date.now() };
+    toast('پروژه به‌روزرسانی شد', 'ok');
+  } else {
+    State.items.unshift({
+      id: uid(),
+      ...data,
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+      order: -(Date.now())
+    });
+    toast('پروژه اضافه شد', 'ok');
+  }
+
+  save();
+  renderAll();
+  closeModal('modalItem');
+}
+
+function deleteItem(){
+  if (!State.editId) return;
+  const item = State.items.find(x => x.id === State.editId);
+  if (!item) return;
+  if (!confirm(`پروژه «${item.name}» حذف شود؟`)) return;
+  State.items = State.items.filter(x => x.id !== State.editId);
+  save();
+  renderAll();
+  closeModal('modalItem');
+  toast('پروژه حذف شد', 'ok');
+}
+
+/* ============================================================
+   GITHUB IMPORT
+   ============================================================ */
+function openGHModal(){
+  $('#ghPreview').innerHTML = '';
+  $('#ghUser').value = '';
+  $('#ghLang').value = '';
+  $('#ghMinStars').value = '';
+  State.ghResults = [];
+  State.ghSelected = new Set();
+  updateGHSelection();
+  openModal('modalGH');
+  setTimeout(()=>$('#ghUser').focus(), 60);
+}
+
+async function fetchGitHub(){
+  const user = $('#ghUser').value.trim();
+  if (!user){ toast('نام کاربری گیت‌هاب رو وارد کن', 'err'); return; }
+
+  const btn = $('#btnGHFetch');
+  const label = $('#ghFetchLabel');
+  btn.disabled = true;
+  label.textContent = 'در حال دریافت…';
+  $('#ghPreview').innerHTML = '<div style="padding:20px;text-align:center;color:var(--txt-3)"><span class="loader"></span> دریافت از گیت‌هاب…</div>';
+
+  try {
+    const res = await fetch(`https://api.github.com/users/${encodeURIComponent(user)}/repos?per_page=100&sort=updated`);
+    if (!res.ok){
+      if (res.status === 404) throw new Error('کاربری با این نام پیدا نشد');
+      if (res.status === 403) throw new Error('محدودیت نرخ API — کمی بعد تلاش کن');
+      throw new Error('خطا: HTTP ' + res.status);
+    }
+    let repos = await res.json();
+
+    // Filters
+    const langFilter = $('#ghLang').value.trim().toLowerCase();
+    const minStars = parseInt($('#ghMinStars').value, 10) || 0;
+    const skipForks = $('#ghSkipForks').checked;
+
+    if (langFilter) repos = repos.filter(r => (r.language||'').toLowerCase().includes(langFilter));
+    if (minStars > 0) repos = repos.filter(r => (r.stargazers_count||0) >= minStars);
+    if (skipForks)   repos = repos.filter(r => !r.fork);
+
+    if (!repos.length){
+      $('#ghPreview').innerHTML = '<div style="padding:20px;text-align:center;color:var(--txt-3)">ریپویی با این فیلترها پیدا نشد.</div>';
+      return;
+    }
+
+    State.ghResults = repos;
+    State.ghSelected = new Set(); // user picks
+    renderGHPreview();
+
+  } catch(e){
+    toast(e.message || 'خطا در دریافت', 'err', 4000);
+    $('#ghPreview').innerHTML = `<div style="padding:20px;text-align:center;color:var(--red);font-size:13px">${esc(e.message||'خطای نامشخص')}</div>`;
+  } finally {
+    btn.disabled = false;
+    label.textContent = 'دریافت ریپوها';
+  }
+}
+
+function renderGHPreview(){
+  const existingUrls = new Set(State.items.map(i=>i.url).filter(Boolean));
+  $('#ghPreview').innerHTML = State.ghResults.map((r, idx) => {
+    const already = existingUrls.has(r.html_url);
+    const on = State.ghSelected.has(idx);
+    return `
+      <div class="gh-item ${on?'on':''} ${already?'':''}" data-gh-idx="${idx}" style="${already?'opacity:.5':''}">
+        <input type="checkbox" ${on?'checked':''} ${already?'disabled':''}>
+        <div class="name" title="${esc(r.full_name)}">
+          ${esc(r.name)}
+          ${already ? '<span style="font-size:10px;color:var(--txt-3)"> (قبلاً اضافه شده)</span>' : ''}
+        </div>
+        <div class="meta">${r.language ? esc(r.language) : ''} ${r.stargazers_count? '· ⭐'+r.stargazers_count : ''}</div>
+      </div>
+    `;
+  }).join('');
+
+  $$('[data-gh-idx]').forEach(el => {
+    const idx = +el.dataset.ghIdx;
+    el.onclick = () => {
+      const r = State.ghResults[idx];
+      if (existingUrls.has(r.html_url)) return;
+      if (State.ghSelected.has(idx)) State.ghSelected.delete(idx);
+      else State.ghSelected.add(idx);
+      renderGHPreview();
+      updateGHSelection();
+    };
+  });
+
+  updateGHSelection();
+}
+
+function updateGHSelection(){
+  const n = State.ghSelected.size;
+  $('#ghSelCount').textContent = n.toLocaleString('fa-IR');
+  $('#btnGHAdd').disabled = n === 0;
+}
+
+function addGHSelection(){
+  if (!State.ghSelected.size) return;
+  const indices = [...State.ghSelected];
+  let added = 0;
+  indices.forEach(idx => {
+    const r = State.ghResults[idx];
+    if (!r) return;
+    State.items.unshift({
+      id: uid(),
+      name: r.name,
+      url: r.html_url,
+      desc: r.description || '',
+      icon: '🐙',
+      category: 'ریپوهای گیت‌هاب',
+      tags: r.topics || [],
+      lang: r.language || '',
+      stars: r.stargazers_count || 0,
+      private: !!r.private,
+      repoFull: r.full_name,
+      pushedAt: r.pushed_at,
+      createdAt: Date.now(),
+      updatedAt: Date.now()
+    });
+    added++;
+  });
+  save();
+  renderAll();
+  closeModal('modalGH');
+  toast(`${added} ریپو اضافه شد`, 'ok');
+}
+
+/* ============================================================
+   IMPORT / EXPORT
+   ============================================================ */
+function exportJSON(){
+  const data = {
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    items: State.items
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `nononick-hub-${new Date().toISOString().slice(0,10)}.json`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
+  toast('فایل خروجی دانلود شد', 'ok');
+}
+
+function importJSON(){
+  const inp = document.createElement('input');
+  inp.type = 'file';
+  inp.accept = '.json,application/json';
+  inp.onchange = async e => {
+    const f = e.target.files[0];
+    if (!f) return;
+    try {
+      const text = await f.text();
+      const d = JSON.parse(text);
+      const incoming = Array.isArray(d) ? d : (Array.isArray(d.items) ? d.items : null);
+      if (!incoming) throw new Error('فرمت نامعتبر');
+
+      // Dedupe by url
+      const existing = new Set(State.items.map(i=>i.url).filter(Boolean));
+      let added = 0;
+      incoming.forEach(item => {
+        if (item.url && existing.has(item.url)) return;
+        State.items.unshift({
+          id: uid(),
+          name: item.name || 'بدون نام',
+          url: item.url || '',
+          desc: item.desc || '',
+          icon: item.icon || '',
+          category: item.category || 'سایر',
+          tags: Array.isArray(item.tags) ? item.tags : [],
+          lang: item.lang || '',
+          stars: item.stars || 0,
+          private: !!item.private,
+          createdAt: item.createdAt || Date.now(),
+          updatedAt: Date.now()
+        });
+        added++;
+      });
+      save();
+      renderAll();
+      toast(`${added} مورد وارد شد`, 'ok');
+    } catch(e){
+      toast('فایل نامعتبر: ' + e.message, 'err', 4000);
+    }
+  };
+  inp.click();
+}
+
+/* ============================================================
+   MODAL helpers
+   ============================================================ */
+function openModal(id){
+  $('#'+id).classList.add('on');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal(id){
+  $('#'+id).classList.remove('on');
+  document.body.style.overflow = '';
+  // Auto-close backdrop if no other modals open
+  if (!$('.modal-backdrop.on')){
+    document.body.style.overflow = '';
+  }
+}
+
+/* ============================================================
+   EVENT WIRING
+   ============================================================ */
+function setup(){
+  // theme
+  $('#btnTheme').onclick = () => {
+    State.theme = State.theme === 'dark' ? 'light' : 'dark';
+    applyTheme(); save();
+  };
+
+  // add/edit
+  $('#btnAdd').onclick = () => openItemModal(null);
+  $('#btnSaveItem').onclick = saveItem;
+  $('#btnDeleteItem').onclick = deleteItem;
+
+  // github
+  $('#btnGHFetch').onclick = fetchGitHub;
+  $('#btnGHAdd').onclick = addGHSelection;
+  $('#btnGHSelectAll').onclick = () => {
+    const existing = new Set(State.items.map(i=>i.url).filter(Boolean));
+    State.ghResults.forEach((r,i) => {
+      if (!existing.has(r.html_url)) State.ghSelected.add(i);
+    });
+    renderGHPreview();
+    updateGHSelection();
+  };
+  $('#btnGHSelectNone').onclick = () => {
+    State.ghSelected.clear();
+    renderGHPreview();
+    updateGHSelection();
+  };
+  $('#ghUser').addEventListener('keydown', e => {
+    if (e.key === 'Enter') fetchGitHub();
+  });
+
+  // import/export
+  $('#btnExport').onclick = exportJSON;
+  $('#btnImport').onclick = importJSON;
+
+  // close modal buttons
+  document.addEventListener('click', e => {
+    const closeBtn = e.target.closest('[data-close]');
+    if (closeBtn){
+      closeModal(closeBtn.dataset.close);
+      return;
+    }
+    if (e.target.classList.contains('modal-backdrop')){
+      closeModal(e.target.id);
+    }
+  });
+
+  // esc closes modal
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape'){
+      const open = $('.modal-backdrop.on');
+      if (open) closeModal(open.id);
+    }
+    // cmd+k focuses search
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k'){
+      e.preventDefault();
+      $('#searchInput').focus();
+    }
+  });
+
+  // search
+  $('#searchInput').addEventListener('input', debounce(e => {
+    State.query = e.target.value.trim();
+    renderGrid();
+  }, 200));
+
+  // sort
+  $('#sortSelect').value = State.sort;
+  $('#sortSelect').addEventListener('change', e => {
+    State.sort = e.target.value;
+    save();
+    renderGrid();
+  });
+
+  // filter chips
+  $('#chips').addEventListener('click', e => {
+    const chip = e.target.closest('[data-filter]');
+    if (!chip) return;
+    State.filter = chip.dataset.filter;
+    buildChips();
+    renderGrid();
+  });
+}
+
+/* ============================================================
+   SAMPLE DATA (اولین اجرا)
+   ============================================================ */
+function seedIfEmpty(){
+  if (State.items.length) return;
+  // خالی شروع کن — کاربر خودش اضافه می‌کنه
+  // اگه نمونه می‌خوای، این آرایه رو با نمونه پر کن
+}
+
+/* ============================================================
+   BOOT
+   ============================================================ */
+function boot(){
+  load();
+  applyTheme();
+  seedIfEmpty();
+  setup();
+  renderAll();
+
+  console.log(
+    '%cNONONICK PROJECT HUB %cv1.0',
+    'background:linear-gradient(90deg,#22d3ee,#a06bff);color:#04141c;padding:4px 10px 4px 12px;border-radius:6px 0 0 6px;font-weight:800',
+    'background:#0a0d15;color:#22d3ee;padding:4px 12px 4px 0;border-radius:0 6px 6px 0;font-weight:700'
+  );
+}
+
+document.addEventListener('DOMContentLoaded', boot);
+</script>
+</body>
+</html>
